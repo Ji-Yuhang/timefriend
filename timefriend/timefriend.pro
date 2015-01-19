@@ -14,7 +14,8 @@ macx {
 }
 
 DISTFILES += \
-    Info.plist
+    Info.plist \
+    bg.jpg
 
 HEADERS += \
     timelist.hxx \

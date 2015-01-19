@@ -5,7 +5,10 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QString path = qApp->applicationDirPath() + "/../../..";
+    QString path = qApp->applicationDirPath();
+#ifdef Q_OS_MAC
+    path += "/../../..";
+#endif
 //    qApp->addLibraryPath(path);
 //    qApp->addLibraryPath("/Users/jiyuhang/Qt5.4.0/5.4/clang_64/plugins");
 //    qApp->addLibraryPath("/Users/jiyuhang/Qt5.4.0/5.4/clang_64/plugins/sqldrivers");
