@@ -2,9 +2,11 @@
 //#include <QQmlApplicationEngine>
 #include "mainwindow.hxx"
 #include <QDebug>
+#include "tomate.hxx"
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+<<<<<<< HEAD
     QString path = qApp->applicationDirPath();
 #ifdef Q_OS_MAC
     path += "/../../..";
@@ -12,12 +14,17 @@ int main(int argc, char *argv[])
 //    qApp->addLibraryPath(path);
 //    qApp->addLibraryPath("/Users/jiyuhang/Qt5.4.0/5.4/clang_64/plugins");
 //    qApp->addLibraryPath("/Users/jiyuhang/Qt5.4.0/5.4/clang_64/plugins/sqldrivers");
+=======
+    QApplication::setQuitOnLastWindowClosed(false);
+//    QString path = qApp->applicationDirPath() + "/../../..
+//    qDebug() << "path" <<path;
+>>>>>>> FETCH_HEAD
 
-    qDebug() << "path" <<path;
-//    QQmlApplicationEngine engine;
-//    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     MainWindow w;
     w.show();
+//    Tomate tomato;
+//    tomato.show();
+
 
     return app.exec();
 }

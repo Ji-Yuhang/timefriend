@@ -5,7 +5,9 @@ QT += sql network
 
 SOURCES += main.cpp \
     timelist.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    remind.cpp \
+    tomate.cpp
 
 RESOURCES += qml.qrc
 macx {
@@ -19,7 +21,11 @@ DISTFILES += \
 
 HEADERS += \
     timelist.hxx \
-    mainwindow.hxx
+    mainwindow.hxx \
+    remind.hxx \
+    tomate.hxx
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    remind.ui \
+    tomate.ui
