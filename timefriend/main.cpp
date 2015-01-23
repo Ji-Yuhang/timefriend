@@ -7,6 +7,11 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QApplication::setQuitOnLastWindowClosed(false);
+<<<<<<< HEAD
+=======
+//    QString path = qApp->applicationDirPath() + "/../../..
+//    qDebug() << "path" <<path;
+>>>>>>> FETCH_HEAD
 
     MainWindow w;
     w.show();
