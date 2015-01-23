@@ -6,11 +6,19 @@
 #include <QApplication>
 #include <QSqlQuery>
 #include <QTimer>
+#include <assert.h>
+#include <QToolBar>
+
+MainWindow* MainWindow::g_mainwindow_ = 0;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     isWaitStop_(false)
 {
+    assert(!g_mainwindow_);
+    g_mainwindow_ = this;
     ui_.setupUi(this);
+    trayIcon_.setIcon(QIcon(":/home.png"));
+
     connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimeout()));
     connect(ui_.addTime, SIGNAL(clicked()), this, SLOT(onAddClicked()));
     connect(ui_.start, SIGNAL(clicked()), this, SLOT(onStartClicked()));
@@ -33,11 +41,29 @@ MainWindow::MainWindow(QWidget *parent) :
         QMessageBox::warning(0,"sql open error",error.text());
     }
     getTodayList();
+    QToolBar* toolbar = new QToolBar;
+    toolbar->addActions(QList<QAction*>() << ui_.actionTomato_manager);
+    this->addToolBar(toolbar);
+    connect(ui_.actionTomato_manager, SIGNAL(triggered()), this, SLOT(showTomato()));
+
+    QMenu * menu = new QMenu();
+
+    QAction * quitAction = menu->addAction("quit");
+
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+    trayIcon_.setContextMenu(menu);
+    trayIcon_.show();
+    trayIcon_.showMessage("Time Friend","Time Friend have starting!");
 }
 
 MainWindow::~MainWindow()
 {
+    g_mainwindow_ = 0;
+}
 
+MainWindow *MainWindow::instance()
+{
+    return g_mainwindow_;
 }
 
 void MainWindow::onAddClicked()
@@ -115,6 +141,11 @@ void MainWindow::onTimeout()
         ui_.timeLabel->setText(timeStr);
 
     }
+}
+
+void MainWindow::showTomato()
+{
+    tomato_.showNormal();
 }
 void MainWindow::getTodayList()
 {
