@@ -2,10 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
-<<<<<<< HEAD
         <file>bg.jpg</file>
-=======
         <file>home.png</file>
->>>>>>> FETCH_HEAD
     </qresource>
 </RCC>
