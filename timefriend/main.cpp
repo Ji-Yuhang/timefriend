@@ -2,7 +2,7 @@
 //#include <QQmlApplicationEngine>
 #include "mainwindow.hxx"
 #include <QDebug>
-#include "tomate.hxx"
+#include "tomato.hxx"
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
