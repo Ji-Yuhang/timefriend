@@ -9,7 +9,7 @@ Remind::Remind(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimeout()));
-    timer_.start(1000);
+    timer_.start(500);
 }
 
 Remind::~Remind()

@@ -6,7 +6,7 @@
 #include <QSystemTrayIcon>
 #include "ui_mainwindow.h"
 #include <QTimer>
-#include "tomate.hxx"
+#include "tomato.hxx"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -21,7 +21,7 @@ private:
     QDateTime startTime_;
     bool isWaitStop_;
     static MainWindow* g_mainwindow_;
-    Tomate tomato_;
+    Tomato tomato_;
     QSystemTrayIcon trayIcon_;
 
 Q_SIGNALS:

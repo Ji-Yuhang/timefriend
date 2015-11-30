@@ -8,13 +8,13 @@ namespace Ui {
 class Tomate;
 }
 
-class Tomate : public QWidget
+class Tomato : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Tomate(QWidget *parent = 0);
-    ~Tomate();
+    explicit Tomato(QWidget *parent = 0);
+    ~Tomato();
     QDateTime beginTime_;
     QTimer timer_;
 public Q_SLOTS:
