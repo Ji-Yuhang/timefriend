@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     timelist.cpp \
     mainwindow.cpp \
     remind.cpp \
-    tomato.cpp
+    tomato.cpp \
+    backtomain.cpp
 
 RESOURCES += qml.qrc
 macx {
@@ -23,9 +24,11 @@ HEADERS += \
     timelist.hxx \
     mainwindow.hxx \
     remind.hxx \
-    tomato.hxx
+    tomato.hxx \
+    backtomain.h
 
 FORMS += \
     mainwindow.ui \
     remind.ui \
-    tomate.ui
+    tomate.ui \
+    backtomain.ui

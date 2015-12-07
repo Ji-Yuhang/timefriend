@@ -7,6 +7,7 @@
 #include "ui_mainwindow.h"
 #include <QTimer>
 #include "tomato.hxx"
+#include "backtomain.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,6 +24,7 @@ private:
     static MainWindow* g_mainwindow_;
     Tomato tomato_;
     QSystemTrayIcon trayIcon_;
+    BackToMain backtoMain_;
 
 Q_SIGNALS:
 
