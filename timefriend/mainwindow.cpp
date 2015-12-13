@@ -8,7 +8,7 @@
 #include <QTimer>
 #include <assert.h>
 #include <QToolBar>
-
+#include "database.h"
 MainWindow* MainWindow::g_mainwindow_ = 0;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,12 +35,12 @@ MainWindow::MainWindow(QWidget *parent) :
     db_.setUserName("root");
     db_.setPassword("jiyuhang8757871");
     db_.setDatabaseName("timefriend");
-    if (!db_.open()) {
-        QSqlError error = db_.lastError();
-        qDebug() << "Open Mysql ERROR : "<<error.text();
-        QMessageBox::warning(0,"sql open error",error.text());
-    }
-    getTodayList();
+//    if (!db_.open()) {
+//        QSqlError error = db_.lastError();
+//        qDebug() << "Open Mysql ERROR : "<<error.text();
+//        QMessageBox::warning(0,"sql open error",error.text());
+//    }
+//    getTodayList();
     QToolBar* toolbar = new QToolBar;
     toolbar->addActions(QList<QAction*>() << ui_.actionTomato_manager);
     this->addToolBar(toolbar);
@@ -149,6 +149,12 @@ void MainWindow::showTomato()
 }
 void MainWindow::getTodayList()
 {
+    DataBase* db = DB;
+    QDateTime now0 = QDateTime::currentDateTime();
+    now0.setTime(QTime(0,0,0));
+    QDateTime now1 = QDateTime::currentDateTime();
+    now1.setTime(QTime(0,0,0));
+    db->select(10001, now0, now1, 1 );
 //    return;
     QString sql = "select * from timefriend";
     QSqlQuery query(db_);

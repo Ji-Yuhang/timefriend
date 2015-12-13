@@ -8,7 +8,10 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     remind.cpp \
     tomato.cpp \
-    backtomain.cpp
+    backtomain.cpp \
+    test.cpp \
+    database.cpp \
+    user.cpp
 
 RESOURCES += qml.qrc
 macx {
@@ -25,7 +28,10 @@ HEADERS += \
     mainwindow.hxx \
     remind.hxx \
     tomato.hxx \
-    backtomain.h
+    backtomain.h \
+    test.h \
+    database.h \
+    user.h
 
 FORMS += \
     mainwindow.ui \

@@ -3,6 +3,7 @@
 #include "mainwindow.hxx"
 #include <QDebug>
 #include "tomato.hxx"
+#include "test.h"
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -10,6 +11,8 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
+    Test test;
+    test.test();
 //    Tomate tomato;
 //    tomato.show();
 
