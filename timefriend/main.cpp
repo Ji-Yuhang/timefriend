@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     Test test;
-    test.test();
+//    test.test();
 //    Tomate tomato;
 //    tomato.show();
 

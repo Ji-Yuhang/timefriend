@@ -1,5 +1,5 @@
 TEMPLATE = app
-
+DESTDIR = ../bin
 QT +=  widgets
 QT += sql network
 
@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     backtomain.cpp \
     test.cpp \
     database.cpp \
-    user.cpp
+    user.cpp \
+    eventtimemodel.cpp
 
 RESOURCES += qml.qrc
 macx {
@@ -31,7 +32,8 @@ HEADERS += \
     backtomain.h \
     test.h \
     database.h \
-    user.h
+    user.h \
+    eventtimemodel.h
 
 FORMS += \
     mainwindow.ui \

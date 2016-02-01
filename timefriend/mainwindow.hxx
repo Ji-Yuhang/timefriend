@@ -8,6 +8,7 @@
 #include <QTimer>
 #include "tomato.hxx"
 #include "backtomain.h"
+#include "eventtimemodel.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +27,7 @@ private:
     QSystemTrayIcon trayIcon_;
     BackToMain backtoMain_;
 
+    EventTimeModel model_;
 Q_SIGNALS:
 
 public Q_SLOTS:
@@ -36,6 +38,7 @@ public Q_SLOTS:
     void showTomato();
     void getTodayList();
     void insertTimeEvent(const QDateTime& begainTime, const QDateTime& endTime, const QString& type, const QString& text );
+
 };
 #define qMainWindow MainWindow::instance()
 #define qSize MainWindow::instance()->size()
