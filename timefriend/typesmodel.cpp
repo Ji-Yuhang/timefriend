@@ -130,6 +130,16 @@ TypesModel::~TypesModel()
 {
     delete d_;
 }
+bool typesModelLessThan(const TypesModel::Data &d1, const TypesModel::Data &d2)
+{
+    return d1.addTime  < d2.addTime;
+}
+QList<TypesModel::Data> TypesModel::sort(const QMap<QString, TypesModel::Data> &map)
+{
+    QList<TypesModel::Data> list = map.values();
+    qSort(list.begin(), list.end(), typesModelLessThan);
+    return list;
+}
 
 bool TypesModel::add(const TypesModel::Data& data)
 {

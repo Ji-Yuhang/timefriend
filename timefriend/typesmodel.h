@@ -11,6 +11,7 @@ public:
     explicit TypesModel();
     ~TypesModel();
 
+
     struct Data {
         QString typeUuid;
         QString userID;
@@ -19,6 +20,7 @@ public:
         QDateTime updateTime;
         Data() : userID(-1){}
     };
+    static QList<TypesModel::Data> sort(const QMap<QString, TypesModel::Data>& map);
 
     bool                                 add(const TypesModel::Data& data);
     bool                                 del(QString uuid);

@@ -17,13 +17,13 @@ int main(int argc, char *argv[])
 //    Tomate tomato;
 //    tomato.show();
 
-    TypesModel typemodel;
-    EventTimeModel etmodel_;
-    EventTimeView view_;
-    view_.setEventTimeModel(&etmodel_);
-    view_.setTypesModel(&typemodel);
-    view_.show();
-    view_.refresh();
+//    TypesModel typemodel;
+//    EventTimeModel etmodel_;
+//    EventTimeView view_;
+//    view_.setEventTimeModel(&etmodel_);
+//    view_.setTypesModel(&typemodel);
+//    view_.show();
+//    view_.refresh();
 
     return app.exec();
 }

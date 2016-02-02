@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         data1.typeName = types.at(i);
         data1.addTime = QDateTime::currentDateTime();
         data1.updateTime = QDateTime::currentDateTime();
-        typeModel.add(data1);
+//        typeModel.add(data1);
     }
     QMap<QString, TypesModel::Data> map1 = typeModel.selectAll();
 

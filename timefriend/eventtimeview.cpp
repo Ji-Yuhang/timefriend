@@ -34,13 +34,22 @@ void EventTimeView::refresh()
     table->clearContents();
     QMap<QString, EventTimeModel::Data> map = eventTimemodel_->selectAll();
     table->setRowCount(map.size());
-    QMap<QString, EventTimeModel::Data>::iterator it = map.begin();
-    for (int row = 0; it != map.end(); ++it) {
-        EventTimeModel::Data& data = it.value();
 
-        QTableWidgetItem* item1 = new QTableWidgetItem(data.beginTime.toString("yyyy-MM-dd hh:mm:ss"));
-        QTableWidgetItem* item2 = new QTableWidgetItem(data.endTime.toString("yyyy-MM-dd hh:mm:ss"));
-        QTableWidgetItem* item3 = new QTableWidgetItem(QString::number(data.length) + QStringLiteral(" 秒"));
+    QList<EventTimeModel::Data> sortedList = EventTimeModel::sort(map);
+    int row = 0;
+    Q_FOREACH(const EventTimeModel::Data& data, sortedList) {
+
+        QTableWidgetItem* item1 = new QTableWidgetItem(data.beginTime.toString("yyyy-MM-dd hh:mm"));
+        QTableWidgetItem* item2 = new QTableWidgetItem(data.endTime.toString("yyyy-MM-dd hh:mm"));
+        QString lengthText;
+        {
+            int min = data.length / 60;
+            int hour = min / 60;
+            min = min % 60;
+            lengthText = QString("%1 时 %2 分").arg(hour).arg(min);
+        }
+
+        QTableWidgetItem* item3 = new QTableWidgetItem(lengthText);
 
         QString typeName;
         if (typesModel_) {
@@ -57,10 +66,7 @@ void EventTimeView::refresh()
 
         ++row;
     }
+
     table->resizeColumnsToContents();
-
-
-
-
 
 }

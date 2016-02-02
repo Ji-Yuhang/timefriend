@@ -54,6 +54,23 @@ MainWindow::MainWindow(QWidget *parent) :
     trayIcon_.setContextMenu(menu);
     trayIcon_.show();
     trayIcon_.showMessage("Time Friend","Time Friend have starting!");
+    connect(ui_.actionAddEventTime, &QAction::triggered, this, &MainWindow::onAddEventTimeActionTrigger);
+    connect(ui_.actionTypeSetting, &QAction::triggered, this, &MainWindow::onActionTypeSettingTrigger);
+
+    eventTimeView_.setEventTimeModel(&eventTimeModel_);
+    eventTimeView_.setTypesModel(&typesModel_);
+    eventTimeView_.show();
+    eventTimeView_.refresh();
+
+    addEventTimeView_.setEventTimeModel(&eventTimeModel_);
+    addEventTimeView_.setTypesModel(&typesModel_);
+    connect(&addEventTimeView_, &AddEventTimeView::addSuccess, &eventTimeView_, &EventTimeView::refresh);
+//    connect(&addEventTimeView_, &AddEventTimeView::addSuccess, &eventTimeView_, &EventTimeView::refresh);
+    connect(&typesView_, &TypesView::dataChanged, &eventTimeView_, &EventTimeView::refresh);
+    connect(&typesView_, &TypesView::dataChanged, &addEventTimeView_, &AddEventTimeView::refreshModelData);
+    typesView_.setTypesModel(&typesModel_);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +81,16 @@ MainWindow::~MainWindow()
 MainWindow *MainWindow::instance()
 {
     return g_mainwindow_;
+}
+
+void MainWindow::onAddEventTimeActionTrigger()
+{
+    addEventTimeView_.showNormal();
+}
+
+void MainWindow::onActionTypeSettingTrigger()
+{
+    typesView_.showNormal();
 }
 
 void MainWindow::onAddClicked()

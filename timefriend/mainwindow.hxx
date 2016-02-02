@@ -11,6 +11,10 @@
 #include "typesmodel.h"
 #include "user.h"
 #include "eventtimeview.h"
+#include "addeventtimeview.h"
+#include "eventtimemodel.h"
+#include "typesmodel.h"
+#include "typesview.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -29,12 +33,19 @@ private:
     QSystemTrayIcon trayIcon_;
     BackToMain backtoMain_;
 
-//    EventTimeModel model_;
-//    EventTimeView view_;
+    EventTimeModel eventTimeModel_;
+    EventTimeView eventTimeView_;
+    AddEventTimeView addEventTimeView_;
+
+    TypesModel typesModel_;
+    TypesView typesView_;
+
     User user_;
 Q_SIGNALS:
 
 public Q_SLOTS:
+    void onAddEventTimeActionTrigger();
+    void onActionTypeSettingTrigger();
     void onAddClicked();
     void onStartClicked();
     void onStopClicke();

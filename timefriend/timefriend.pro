@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     uuid.cpp \
     eventtimeview.cpp \
     typesmodel.cpp \
-    eventtimemodel.cpp
+    eventtimemodel.cpp \
+    addeventtimeview.cpp \
+    typesview.cpp
 
 RESOURCES += qml.qrc
 macx {
@@ -39,11 +41,15 @@ HEADERS += \
     uuid.h \
     eventtimeview.h \
     typesmodel.h \
-    eventtimemodel.h
+    eventtimemodel.h \
+    addeventtimeview.h \
+    typesview.h
 
 FORMS += \
     mainwindow.ui \
     remind.ui \
     tomate.ui \
     backtomain.ui \
-    eventtimeview.ui
+    eventtimeview.ui \
+    addeventtimeview.ui \
+    typesview.ui

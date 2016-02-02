@@ -24,12 +24,14 @@ public:
         QDateTime updateTime;
         Data() : userID(-1), length(0){}
     };
+    static QList<EventTimeModel::Data> sort(const QMap<QString, EventTimeModel::Data>& map);
 
     bool                                 add(const EventTimeModel::Data& data);
     bool                                 del(QString uuid);
     bool                                 update(QString uuid, const EventTimeModel::Data& data);
     QMap<QString, EventTimeModel::Data>  selectAll();
 
+private:
     EventTimeModelPrivate* d_;
 };
 

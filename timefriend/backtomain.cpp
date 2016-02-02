@@ -8,7 +8,7 @@ BackToMain::BackToMain(QWidget *parent) :
     ui->setupUi(this);
     connect(&timer_, &QTimer::timeout, this, &BackToMain::onTimeout);
     int oneMinute = 60000;
-    timer_.start(10*oneMinute);
+    timer_.start(20*oneMinute);
 }
 
 BackToMain::~BackToMain()

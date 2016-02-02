@@ -140,6 +140,16 @@ EventTimeModel::~EventTimeModel()
 {
     delete d_;
 }
+bool eventTimeModelLessThan(const EventTimeModel::Data &d1, const EventTimeModel::Data &d2)
+{
+    return d1.beginTime  < d2.beginTime;
+}
+QList<EventTimeModel::Data> EventTimeModel::sort(const QMap<QString, EventTimeModel::Data> &map)
+{
+    QList<EventTimeModel::Data> list = map.values();
+    qSort(list.begin(), list.end(), eventTimeModelLessThan);
+    return list;
+}
 
 bool EventTimeModel::add(const EventTimeModel::Data& data)
 {
