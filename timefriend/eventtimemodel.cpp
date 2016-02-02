@@ -4,56 +4,113 @@
 #include <QVariant>
 #include <QDebug>
 #include <QSqlError>
+#include "uuid.h"
+#include <assert.h>
 class EventTimeModelPrivate {
 public:
     EventTimeModelPrivate(){}
     virtual ~EventTimeModelPrivate(){}
-    virtual int                                 add(EventTimeModel::Data data) = 0;
-    virtual int                                 del(QString uuid) = 0;
-    virtual int                                 update(QString uuid, EventTimeModel::Data data) = 0;
+    virtual bool                                add(const EventTimeModel::Data& data) = 0;
+    virtual bool                                del(QString uuid) = 0;
+    virtual bool                                update(QString uuid, const EventTimeModel::Data& data) = 0;
     virtual QMap<QString, EventTimeModel::Data> selectAll() = 0;
 protected:
     QMap<QString, EventTimeModel::Data> data_;
 };
 
-class SqliteDatabase : public EventTimeModelPrivate {
+class EventTimeSqliteDatabase : public EventTimeModelPrivate {
 public:
-    SqliteDatabase();
-    ~SqliteDatabase();
-    virtual int                                 add(EventTimeModel::Data data);
-    virtual int                                 del(QString uuid);
-    virtual int                                 update(QString uuid, EventTimeModel::Data data);
+    EventTimeSqliteDatabase();
+    ~EventTimeSqliteDatabase();
+    virtual bool                                add(const EventTimeModel::Data& data);
+    virtual bool                                del(QString uuid);
+    virtual bool                                update(QString uuid, const EventTimeModel::Data& data);
     virtual QMap<QString, EventTimeModel::Data> selectAll();
 private:
     bool initDB();
     QSqlDatabase db_;
 };
 
-SqliteDatabase::SqliteDatabase()
+EventTimeSqliteDatabase::EventTimeSqliteDatabase()
 {
     if (!initDB()) {
         qDebug() << "cannot read data from sqlite database";
     }
 }
 
-SqliteDatabase::~SqliteDatabase()
+EventTimeSqliteDatabase::~EventTimeSqliteDatabase()
 {
 
 }
 
-bool SqliteDatabase::initDB()
+bool EventTimeSqliteDatabase::initDB()
 {
-    data_.clear();
-    db_ = QSqlDatabase::addDatabase("QSQLITE","local_timefriend");
+    db_ = QSqlDatabase::addDatabase("QSQLITE","local_timefriend_for_event_time");
     db_.setDatabaseName("timefriend.db");
     if (db_.open()) {
+        selectAll();
+        return true;
+    } else {
+        return false;
+    }
+    return false;
+}
+
+bool EventTimeSqliteDatabase::add(const EventTimeModel::Data&  data)
+{
+    if (db_.isOpen()) {
+        QString sql = "insert into eventtime "
+                      "(eventtimeid, userid, begintime, endtime, timelength, typeid, tag, text, addtime, updatetime)"
+                      "values (:eventtimeid, :userid, :begintime, :endtime, :timelength, :typeid, :tag, :text, :addtime, :updatetime);";
+        QSqlQuery query(db_);
+        if (!query.prepare(sql)) {
+            qDebug() << "prepare sql error:" << sql;
+            return false;
+        }
+        QString uuid = Uuid::generate();
+        int userid(0); // TODO: how to get userid?
+        query.bindValue(":eventtimeid", data.uuid);
+        query.bindValue(":userid", data.userID);
+        query.bindValue(":begintime", data.beginTime);
+        query.bindValue(":endtime", data.endTime);
+        query.bindValue(":timelength", data.length);
+        query.bindValue(":typeid", data.typeUuid);
+        query.bindValue(":tag", data.tag);
+        query.bindValue(":text", data.text);
+        query.bindValue(":addtime", data.addTime);
+        query.bindValue(":updatetime", data.updateTime);
+
+        if (query.exec() ) {
+            return true;
+        } else {
+            qDebug() <<"add sql error:"<<query.lastError().text();
+            return false;
+        }
+    }
+    return false;
+}
+
+bool EventTimeSqliteDatabase::del(QString uuid)
+{
+    return false;
+}
+
+bool EventTimeSqliteDatabase::update(QString uuid, const EventTimeModel::Data& data)
+{
+    return false;
+}
+
+QMap<QString, EventTimeModel::Data> EventTimeSqliteDatabase::selectAll()
+{
+    data_.clear();
+    if (db_.isOpen()) {
         QString sql = "select * from eventtime;";
         QSqlQuery query(db_);
         if (query.exec(sql) ) {
             while (query.next()) {
                 EventTimeModel::Data data;
                 data.uuid = query.value("eventtimeid").toString();
-                data.userID = query.value("userid").toInt();
+                data.userID = query.value("userid").toString();
                 data.beginTime = query.value("begintime").toDateTime();
                 data.endTime = query.value("endtime").toDateTime();
                 data.length = query.value("timelength").toInt();
@@ -64,68 +121,43 @@ bool SqliteDatabase::initDB()
                 data.updateTime = query.value("updatetime").toDateTime();
                 data_.insert(data.uuid, data);
             }
-
-            return true;
         } else {
-            qDebug() <<"sql error:"<<query.lastError().text();
-            return false;
+            qDebug() <<"selectAll sql error:"<<query.lastError().text();
         }
-    } else {
-        return false;
     }
-    return false;
-}
-
-int SqliteDatabase::add(EventTimeModel::Data data)
-{
-    return 0;
-}
-
-int SqliteDatabase::del(QString uuid)
-{
-    return 0;
-}
-
-int SqliteDatabase::update(QString uuid, EventTimeModel::Data data)
-{
-    return 0;
-}
-
-QMap<QString, EventTimeModel::Data> SqliteDatabase::selectAll()
-{
     return data_;
 }
 
 
 
 EventTimeModel::EventTimeModel() :
-    p_(new SqliteDatabase)
+    d_(new EventTimeSqliteDatabase)
 {
 
 }
 
 EventTimeModel::~EventTimeModel()
 {
-    delete p_;
+    delete d_;
 }
 
-int EventTimeModel::add(EventTimeModel::Data data)
+bool EventTimeModel::add(const EventTimeModel::Data& data)
 {
-    return p_->add(data);
+    return d_->add(data);
 }
 
-int EventTimeModel::del(QString uuid)
+bool EventTimeModel::del(QString uuid)
 {
-    return p_->del(uuid);
+    return d_->del(uuid);
 }
 
-int EventTimeModel::update(QString uuid, EventTimeModel::Data data)
+bool EventTimeModel::update(QString uuid, const EventTimeModel::Data& data)
 {
-    return p_->update(uuid, data);
+    return d_->update(uuid, data);
 }
 
 QMap<QString, EventTimeModel::Data> EventTimeModel::selectAll()
 {
-    return p_->selectAll();
+    return d_->selectAll();
 }
 

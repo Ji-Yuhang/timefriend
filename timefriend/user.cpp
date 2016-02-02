@@ -12,3 +12,8 @@ User::UserInfo User::login(const QString &account, const QString &password)
     return info;
 }
 
+int User::userID()
+{
+    return host_.userid;
+}
+

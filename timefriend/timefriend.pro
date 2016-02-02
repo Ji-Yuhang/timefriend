@@ -12,6 +12,9 @@ SOURCES += main.cpp \
     test.cpp \
     database.cpp \
     user.cpp \
+    uuid.cpp \
+    eventtimeview.cpp \
+    typesmodel.cpp \
     eventtimemodel.cpp
 
 RESOURCES += qml.qrc
@@ -33,10 +36,14 @@ HEADERS += \
     test.h \
     database.h \
     user.h \
+    uuid.h \
+    eventtimeview.h \
+    typesmodel.h \
     eventtimemodel.h
 
 FORMS += \
     mainwindow.ui \
     remind.ui \
     tomate.ui \
-    backtomain.ui
+    backtomain.ui \
+    eventtimeview.ui

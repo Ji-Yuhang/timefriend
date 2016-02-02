@@ -1,9 +1,8 @@
-#ifndef EVENTTIMEMODEL_H
-#define EVENTTIMEMODEL_H
+#ifndef EventTimeModel_H
+#define EventTimeModel_H
 
 #include <QDateTime>
 #include <QObject>
-#include "uuid.h"
 class EventTimeModelPrivate;
 class EventTimeModel : public QObject
 {
@@ -14,7 +13,7 @@ public:
 
     struct Data {
         QString uuid;
-        int userID;
+        QString userID;
         QDateTime beginTime;
         QDateTime endTime;
         int length; // second
@@ -26,12 +25,12 @@ public:
         Data() : userID(-1), length(0){}
     };
 
-    int                                 add(EventTimeModel::Data data);
-    int                                 del(QString uuid);
-    int                                 update(QString uuid, EventTimeModel::Data data);
-    QMap<QString, EventTimeModel::Data> selectAll();
+    bool                                 add(const EventTimeModel::Data& data);
+    bool                                 del(QString uuid);
+    bool                                 update(QString uuid, const EventTimeModel::Data& data);
+    QMap<QString, EventTimeModel::Data>  selectAll();
 
-    EventTimeModelPrivate* p_;
+    EventTimeModelPrivate* d_;
 };
 
-#endif // EVENTTIMEMODEL_H
+#endif // EventTimeModel_H

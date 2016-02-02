@@ -23,6 +23,9 @@ public:
 
     UserInfo login(const QString& account, const QString& password);
 
+    int userID();
+private:
+    UserInfo host_;
 signals:
 
 public slots:

@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>MainForm.ui.qml</file>
         <file>bg.jpg</file>
         <file>home.png</file>
     </qresource>

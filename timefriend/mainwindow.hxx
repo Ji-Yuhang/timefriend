@@ -8,7 +8,9 @@
 #include <QTimer>
 #include "tomato.hxx"
 #include "backtomain.h"
-#include "eventtimemodel.h"
+#include "typesmodel.h"
+#include "user.h"
+#include "eventtimeview.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,7 +29,9 @@ private:
     QSystemTrayIcon trayIcon_;
     BackToMain backtoMain_;
 
-    EventTimeModel model_;
+//    EventTimeModel model_;
+//    EventTimeView view_;
+    User user_;
 Q_SIGNALS:
 
 public Q_SLOTS:
